@@ -34,8 +34,14 @@
 
 " Functions
 syn match   cCustomParen    "(" contains=cParen contains=cCppParen
+syn match   cCustomCurly    "{" contains=cParen contains=cCppParen
 syn match   cCustomFunc     "\w\+\s*(\@=" contains=cCustomParen
+syn match   cCustomClassType   "[class\|public\|struct\|namespace\|define] \w\+"hs=s+2
+syn match   cCustomMacroDef   "[define] \w\+"hs=s+2
 hi def link cCustomFunc  Function
+hi def link cCustomClassType  Typedef
+hi def link cCustomClassTypeNoSpace  Typedef
+hi def link cCustomMacroDef  Function
 
 " Template functions
 if exists('g:cpp_experimental_template_highlight') && g:cpp_experimental_template_highlight
@@ -1350,16 +1356,16 @@ if version >= 508 || !exists("did_cpp_syntax_inits")
     command -nargs=+ HiLink hi def link <args>
   endif
   HiLink cppSTLfunction     Function
-  HiLink cppSTLfunctional   Typedef
-  HiLink cppSTLconstant     Constant
-  HiLink cppSTLnamespace    Constant
-  HiLink cppSTLtype         Typedef
+  HiLink cppSTLfunctional   Include
+  HiLink cppSTLconstant     Include
+  HiLink cppSTLnamespace    Include
+  HiLink cppSTLtype         Include
   HiLink cppSTLexception    Exception
-  HiLink cppSTLiterator     Typedef
-  HiLink cppSTLiterator_tag Typedef
-  HiLink cppSTLenum         Typedef
+  HiLink cppSTLiterator     Include
+  HiLink cppSTLiterator_tag Include
+  HiLink cppSTLenum         Include
   HiLink cppSTLios          Function
-  HiLink cppSTLcast         Statement " be consistent with official syntax
+  HiLink cppSTLcast         Include " be consistent with official syntax
   HiLink cppRawString       String 
   HiLink cppRawDelimiter    Delimiter
   delcommand HiLink
